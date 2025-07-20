@@ -1,0 +1,54 @@
+# Example cURL commands for Ekart Backend
+
+# Register a new user
+curl -X POST http://localhost:5000/api/user/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"john_doe","password":"password123","name":"John Doe","email":"john@example.com"}' \
+  -c cookies.txt
+
+# Login as the user
+curl -X POST http://localhost:5000/api/user/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"john_doe","password":"password123"}' \
+  -c cookies.txt -b cookies.txt
+
+# Get user profile
+curl http://localhost:5000/api/user/profile -b cookies.txt
+
+# Logout
+curl -X POST http://localhost:5000/api/user/logout -b cookies.txt
+
+# List all rides
+curl http://localhost:5000/api/ride
+
+# Create a new ride (admin/demo)
+curl -X POST http://localhost:5000/api/ride \
+  -H "Content-Type: application/json" \
+  -d '{"origin":"City A","destination":"City B","date":"2025-07-20T10:00:00Z","seats":4,"price":100}'
+
+# List user's bookings
+curl http://localhost:5000/api/booking -b cookies.txt
+
+# Book a ride (replace <RIDE_ID> with actual ride ID)
+curl -X POST http://localhost:5000/api/booking/book \
+  -H "Content-Type: application/json" \
+  -d '{"rideId":"60f7c2b8e1d2c8a1b8e1d2c8","seatsBooked":2}' \
+  -b cookies.txt
+
+# Cancel a booking (replace <BOOKING_ID> with actual booking ID)
+curl -X POST http://localhost:5000/api/booking/cancel \
+  -H "Content-Type: application/json" \
+  -d '{"bookingId":"60f7c2b8e1d2c8a1b8e1d2c9"}' \
+  -b cookies.txt
+
+# Get wallet balance
+curl http://localhost:5000/api/wallet -b cookies.txt
+
+# Add funds to wallet
+curl -X POST http://localhost:5000/api/wallet/add \
+  -H "Content-Type: application/json" \
+  -d '{"amount":500}' \
+  -b cookies.txt
+
+# Test backend is running
+curl http://localhost:5000/api/test
